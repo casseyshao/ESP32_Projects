@@ -25,16 +25,15 @@ void setup() {
 }
 
 void loop() {
-  lcd.setCursor(0,1);             // Move the cursor to row 1, column 0
   int adcVal = analogRead(PIN_ANALOG_IN); //read adc
   int pwmVal = map(constrain(adcVal, LIGHT_MIN, LIGHT_MAX), LIGHT_MIN, LIGHT_MAX, 0, 4095);  // adcVal re-map to pwmVal
+  
   ledcWrite(CHAN, pwmVal);    // set the pulse width.
+  
+  lcd.setCursor(0,1);             // Move the cursor to row 1, column 0
   if (pwmVal == 4095) {
     lcd.print("No, need light");
   } else {
     lcd.print("Yes           ");
   }
-//  lcd.print("Counter:");          // The count is displayed every second
-//  lcd.print(millis() / 1000);
-//  delay(1000);
 }
